@@ -1,7 +1,5 @@
 import { CreateConection } from './CreateControles.js'
 
-
-
 export async function add(req, res) {
     try {
         const body = req.body
@@ -19,4 +17,3 @@ export async function add(req, res) {
     }
 
 }
-

@@ -7,24 +7,27 @@ import { dalete } from "../controlessDB/dalete.js";
 
 const router = express.Router();
 
-router.post('/post', (req, res) => {
+export function Router() {
+  router.post('/post', (req, res) => {
     add(req, res);
-    return router;
-});
 
-router.delete('/delete', (req, res) => {
+  });
+
+  router.delete('/delete', (req, res) => {
     dalete(req, res);
-    return router;
-});
 
-router.put('/update/:id', (req, res) => {
+  });
+
+  router.put('/update/:id', (req, res) => {
     update(req, res);
-    return router;
-});
 
-router.get('/get', (req, res) => {
+  });
+
+  router.get('/get', (req, res) => {
     read(req, res);
     return router;
-});
+  });
+  return router
 
+}
 
