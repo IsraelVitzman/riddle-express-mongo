@@ -1,4 +1,4 @@
-import { CreateConection } from './CreateControles.js'
+import { CreateConection } from '../connectMongoDB/creatConnectMDB.js'
 
 
 
@@ -6,10 +6,10 @@ export async function update(req, res) {
     try {
         const id = req.params.id
         const body = req.body
-        const { client, collection } = await CreateConection()
+        const { client, collection } = await CreateConection('riddles')
 
         await collection.updateOne(
-            { _id: new ObjectId(id) },///????
+            { _id: new ObjectId(id) },
             { $set: body }
         );
 

@@ -1,11 +1,11 @@
-import { CreateConection } from './CreateControles.js';
+import { CreateConection } from '../connectMongoDB/creatConnectMDB.js';
 
 
 
 export async function read(req, res) {
 
     try {
-        const { client, collection } = await CreateConection()
+        const { client, collection } = await CreateConection('riddles')
 
         const result = await collection.find().toArray();
 

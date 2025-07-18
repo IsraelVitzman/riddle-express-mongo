@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb'
 
-export async function CreateConection() {
+export async function CreateConection(teblle) {
     try {
 
         const uri = 'mongodb+srv://iv058lv:0GtoJRS1bylHZF9R@cluster0.hyvelxx.mongodb.net/?retryWrites=true&w=majority';
@@ -9,9 +9,9 @@ export async function CreateConection() {
 
         await client.connect()
 
-        const db = client.db('DataBaseAgent')
+        const db = client.db('DBGameRiddles')
 
-        const collection = db.collection('Agents')
+        const collection = db.collection(teblle)
 
         return { client, collection };
 

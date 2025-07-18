@@ -1,9 +1,9 @@
-import { CreateConection } from './CreateControles.js'
+import { CreateConection } from '../connectMongoDB/creatConnectMDB.js'
 
-export async function add(req, res) {
+export async function NewPlayer(req, res) {
     try {
         const body = req.body
-        const { client, collection } = await CreateConection()
+        const { client, collection } = await CreateConection('player')
 
         await collection.insertOne(body)
 
