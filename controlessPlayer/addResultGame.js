@@ -1,6 +1,6 @@
 import { CreateConection } from '../connectMongoDB/creatConnectMDB.js'
 
-export async function add(req, res) {
+export async function AddResult(req, res) {
     try {
         const { name, avergeTime, allTime } = req.body
 
