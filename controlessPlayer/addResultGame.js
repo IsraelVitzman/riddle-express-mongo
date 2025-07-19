@@ -24,7 +24,7 @@ export async function AddResult(req, res) {
 
 
     } catch (err) {
-        console.log(err);
+        res.end(err)
 
     } finally {
         await players.client.close()

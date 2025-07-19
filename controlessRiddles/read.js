@@ -14,7 +14,7 @@ export async function read(req, res) {
         await client.close()
 
     } catch (err) {
-        console.log(err);
+        res.end(err);
 
     }
 

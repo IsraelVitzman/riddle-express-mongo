@@ -17,7 +17,7 @@ export async function dalete(req, res) {
 
 
     } catch (err) {
-        console.log(err);
+        res.end(err);
 
     }
 

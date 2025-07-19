@@ -6,13 +6,14 @@ export async function NewPlayer(req, res) {
         const { client, collection } = await CreateConection('player')
 
         await collection.insertOne(body)
-
+        
+        
         res.end('insert seccossflly')
 
         await client.close()
 
     } catch (err) {
-        console.log(err);
+        res.end(err);
 
     }
 
