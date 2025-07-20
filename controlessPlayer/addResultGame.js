@@ -29,7 +29,7 @@ export async function AddResult(req, res) {
         res.status(500).send(err.message);
 
     } finally {
-
+       
         await players.client.close();
         await resultGams.client.close();
 

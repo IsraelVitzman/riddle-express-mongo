@@ -1,20 +1,20 @@
 import { CreateConection } from '../connectMongoDB/creatConnectMDB.js';
 
 export async function Add(req, res) {
-    let client;
+    let clientClose;
     try {
 
         const body = req.body;
 
         console.log(body);
 
-        const connection = await CreateConection('riddles');
+        const { client, connection } = await CreateConection('riddles');
 
-        client = connection.client;
+        clientClose = client
 
-        const collection = connection.collection;
 
-        await collection.insertOne(body);
+
+        await connection.insertOne(body);
 
         res.status(201).send('insert successfully');
 
@@ -23,7 +23,7 @@ export async function Add(req, res) {
         res.status(500).send(err.message);
     } finally {
 
-        await client.close();
+        await clientClose.close();
 
     }
 }

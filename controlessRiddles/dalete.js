@@ -2,17 +2,17 @@ import { CreateConection } from '../connectMongoDB/creatConnectMDB.js'
 
 
 export async function Delete(req, res) {
-    let client;
+    let clientClose;
 
     try {
         const id = req.params.id;
 
-        const connection = await CreateConection('riddles');
-        client = connection.client;
-        const collection = connection.collection;
+        const { client, connection } = await CreateConection('riddles');
+        clientClose = client
 
 
-        await collection.deleteOne({ id });
+
+        await connection.deleteOne({ id });
 
         res.status(200).send("Delete successfully");
 
@@ -22,7 +22,7 @@ export async function Delete(req, res) {
 
     } finally {
 
-        await client.close();
+        await clientClose.close();
 
     }
 }

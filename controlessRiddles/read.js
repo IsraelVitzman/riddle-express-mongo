@@ -3,16 +3,15 @@ import { CreateConection } from '../connectMongoDB/creatConnectMDB.js';
 
 
 export async function Read(req, res) {
-    let client
+    let clientClose
     try {
-        const collection = await CreateConection('riddles')
-        client = collection.client;
+        const { client, collection } = await CreateConection('riddles')
+        clientClose = client;
 
         const result = await collection.find().toArray();
 
         res.status(200).json(result);
 
-        await client.close()
 
     } catch (err) {
         console.error('invalid eroor /read/:', err);
@@ -21,7 +20,8 @@ export async function Read(req, res) {
 
     }
     finally {
-        await client.close()
+        if(clientClose)
+           await clientClose.close()
     }
 
 }

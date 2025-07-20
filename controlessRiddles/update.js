@@ -3,15 +3,15 @@ import { CreateConection } from '../connectMongoDB/creatConnectMDB.js'
 
 
 export async function Update(req, res) {
-    let client;
+    let clientClose;
     try {
         const id = req.params.id
 
         const body = req.body
 
-        const collection = await CreateConection('riddles')
+        const { client, collection } = await CreateConection('riddles')
 
-        client = collection.client;
+        clientClose = client
 
         await collection.updateOne(
             { _id: new ObjectId(id) },
@@ -27,6 +27,7 @@ export async function Update(req, res) {
         res.status(500).send(err.message);
     }
     finally {
-        await client.close()
+        if (clientClose)
+            await clientClose.close()
     }
 }
