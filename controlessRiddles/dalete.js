@@ -1,7 +1,7 @@
 import { CreateConection } from '../connectMongoDB/creatConnectMDB.js'
 
 
-export async function deleteRiddle(req, res) {
+export async function Delete(req, res) {
     let client;
 
     try {

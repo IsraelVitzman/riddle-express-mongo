@@ -2,7 +2,7 @@ import { CreateConection } from '../connectMongoDB/creatConnectMDB.js';
 
 
 
-export async function read(req, res) {
+export async function Read(req, res) {
     let client
     try {
         const collection = await CreateConection('riddles')

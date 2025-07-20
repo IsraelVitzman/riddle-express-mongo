@@ -2,7 +2,7 @@ import { CreateConection } from '../connectMongoDB/creatConnectMDB.js'
 
 
 
-export async function update(req, res) {
+export async function Update(req, res) {
     let client;
     try {
         const id = req.params.id
@@ -10,7 +10,7 @@ export async function update(req, res) {
         const body = req.body
 
         const collection = await CreateConection('riddles')
-        
+
         client = collection.client;
 
         await collection.updateOne(

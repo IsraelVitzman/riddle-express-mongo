@@ -1,30 +1,30 @@
 import express from 'express';
 
-import { read } from "../controlessRiddles/read.js";
-import { add } from "../controlessRiddles/add.js";
-import { update } from "../controlessRiddles/update.js";
-import { dalete } from "../controlessRiddles/dalete.js";
+import { Read } from "../controlessRiddles/read.js";
+import { Add } from "../controlessRiddles/add.js";
+import { Update } from "../controlessRiddles/update.js";
+import { Delete } from "../controlessRiddles/dalete.js";
 
 const router = express.Router();
 
 export function RouterRiddles() {
   router.post('/addRiddle', (req, res) => {
-    add(req, res);
+    Add(req, res);
 
   });
 
   router.delete('/deleteRiddle', (req, res) => {
-    dalete(req, res);
+    Delete(req, res);
 
   });
 
   router.put('/updateRiddle/:id', (req, res) => {
-    update(req, res);
+    Update(req, res);
 
   });
 
   router.get('/getAllRidlles', (req, res) => {
-    read(req, res);
+    Read(req, res);
 
   });
   return router

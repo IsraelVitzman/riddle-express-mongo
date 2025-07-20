@@ -1,6 +1,6 @@
 import { CreateConection } from '../connectMongoDB/creatConnectMDB.js';
 
-export async function add(req, res) {
+export async function Add(req, res) {
     let client;
     try {
 
