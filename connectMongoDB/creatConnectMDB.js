@@ -15,6 +15,7 @@ export async function CreateConection(table) {
         return { client, collection };
 
     } catch (err) {
+        
         console.error(" MongoDB connection error:", err);
         throw err;
     }

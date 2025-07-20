@@ -8,7 +8,7 @@ export async function AddResult(req, res) {
 
         players = await CreateConection('player');
 
-        const player = await players.collection.findOne({ name });
+        const player = await players.collection.findOne({name});
 
         if (!player) {
             return res.status(404).send('Player not found');

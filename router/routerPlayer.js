@@ -1,18 +1,23 @@
 import express from 'express';
-import { NewPlayer } from "../controlessPlayer/addNewPlayer.js";
-import { AddResult } from "../controlessPlayer/addResultGame.js";
+import { NewPlayer } from "../controlessPlayer/add.js";
+import { ReadAllPlayers } from "../controlessPlayer/get.js";
+
 const router = express.Router();
 
 export function RouterPlayer() {
 
-    router.post('/dataPlayer', (req, res) => {
-        AddResult(req, res)
-    });
 
     router.post('/newPlayer', (req, res) => {
         NewPlayer(req, res)
 
     });
+
+    router.get('/getAllNamePlayers', (req, res) => {
+        ReadAllPlayers(req, res)
+
+    });
+
+
 
 
 

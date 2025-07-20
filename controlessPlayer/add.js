@@ -16,8 +16,10 @@ export async function NewPlayer(req, res) {
         res.status(201).send('insert successfully');
 
     } catch (err) {
+
         console.error(' invalid eroor: /addnewplayer/ :', err);
         res.status(500).send(err.message);
+
     } finally {
 
         if (clientClose) {
