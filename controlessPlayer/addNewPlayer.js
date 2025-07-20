@@ -6,12 +6,12 @@ export async function NewPlayer(req, res) {
     try {
         const body = req.body;
 
-        const {client,connection} = await CreateConection('player');
+        const { client, collection } = await CreateConection('player');
 
-        clientClose=client
+        clientClose = client
 
 
-        await connection.insertOne(body);
+        await collection.insertOne(body);
 
         res.status(201).send('insert successfully');
 
@@ -20,7 +20,7 @@ export async function NewPlayer(req, res) {
         res.status(500).send(err.message);
     } finally {
 
-        if (client) {
+        if (clientClose) {
             await clientClose.close();
         }
     }

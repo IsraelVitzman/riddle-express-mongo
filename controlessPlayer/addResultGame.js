@@ -9,6 +9,11 @@ export async function AddResult(req, res) {
         players = await CreateConection('player');
 
         const player = await players.collection.findOne({ name });
+
+        if (!player) {
+            return res.status(404).send('Player not found');
+        }
+
         const playerId = player._id;
 
         const result = {
@@ -29,7 +34,7 @@ export async function AddResult(req, res) {
         res.status(500).send(err.message);
 
     } finally {
-       
+
         await players.client.close();
         await resultGams.client.close();
 

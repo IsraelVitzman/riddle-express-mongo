@@ -8,13 +8,12 @@ export async function Add(req, res) {
 
         console.log(body);
 
-        const { client, connection } = await CreateConection('riddles');
+        const { client, collection } = await CreateConection('riddles');
 
         clientClose = client
 
 
-
-        await connection.insertOne(body);
+        await collection.insertOne(body);
 
         res.status(201).send('insert successfully');
 

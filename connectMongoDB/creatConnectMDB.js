@@ -2,17 +2,9 @@ import { MongoClient } from 'mongodb';
 
 export async function CreateConection(table) {
     try {
-        const uri = "mongodb+srv://iv058lv:YOUR_PASSWORD@cluster0.qvojuft.mongodb.net/DBGameRiddles?retryWrites=true&w=majority";
+        const uri = "mongodb+srv://iv058lv:bBOgzRzKJoXP7rKN@cluster0.qvojuft.mongodb.net/"
 
-
-
-
-        const client = new MongoClient(uri, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            tlsAllowInvalidCertificates: true,
-        });
-
+        const client = new MongoClient(uri);
 
         await client.connect();
 

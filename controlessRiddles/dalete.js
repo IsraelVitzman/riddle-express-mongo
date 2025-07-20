@@ -7,12 +7,12 @@ export async function Delete(req, res) {
     try {
         const id = req.params.id;
 
-        const { client, connection } = await CreateConection('riddles');
+        const { client, collection } = await CreateConection('riddles');
         clientClose = client
 
 
 
-        await connection.deleteOne({ id });
+        await collection.deleteOne({ id });
 
         res.status(200).send("Delete successfully");
 
