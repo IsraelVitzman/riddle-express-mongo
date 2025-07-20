@@ -2,7 +2,7 @@ import { CreateConection } from '../connectMongoDB/creatConnectMDB.js';
 
 
 
-export async function ReadAllPlayers(req, res) {
+export async function ReadAllResultGame(req, res) {
     let clientClose
     try {
         const { client, collection } = await CreateConection('resultGams')
