@@ -1,21 +1,29 @@
-import { CreateConection } from '../connectMongoDB/creatConnectMDB.js'
+import { CreateConection } from '../connectMongoDB/creatConnectMDB.js';
 
 export async function add(req, res) {
+    let client;
     try {
-        const body = req.body
+
+        const body = req.body;
+
         console.log(body);
-        
-        const { client, collection } = await CreateConection('riddles')
 
-        await collection.insertOne(body)
+        const connection = await CreateConection('riddles');
 
-        res.end('insert seccossflly')
-        
-        await client.close()
+        client = connection.client;
+
+        const collection = connection.collection;
+
+        await collection.insertOne(body);
+
+        res.status(201).send('insert successfully');
 
     } catch (err) {
-        res.end(err);
+        console.error(' invalid eroor /add/:', err);
+        res.status(500).send(err.message);
+    } finally {
+
+        await client.close();
 
     }
-
 }

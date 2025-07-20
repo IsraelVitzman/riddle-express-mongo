@@ -1,10 +1,12 @@
 import { CreateConection } from '../connectMongoDB/creatConnectMDB.js'
 
 export async function AddResult(req, res) {
-    try {
-        const { name, avergeTime, allTime } = req.body
+    let players, resultGams;
 
-        const players = await CreateConection('player')
+    try {
+        const { name, avergeTime, allTime } = req.body;
+
+        players = await CreateConection('player');
 
         const player = await players.collection.findOne({ name });
         const playerId = player._id;
@@ -14,21 +16,22 @@ export async function AddResult(req, res) {
             name,
             avergeTime,
             allTime
-        }
+        };
 
-        const resultGams = await CreateConection('resultGams')
+        resultGams = await CreateConection('resultGams');
         await resultGams.collection.insertOne(result);
 
-        res.end('insert seccossflly')
-
-
+        res.status(201).send('insert seccossflly');
 
     } catch (err) {
-        res.end(err)
+
+        console.error('invalid eroor: /addResultGame/:', err);
+        res.status(500).send(err.message);
 
     } finally {
-        await players.client.close()
-        await resultGams.client.close()
-    }
 
+        await players.client.close();
+        await resultGams.client.close();
+
+    }
 }

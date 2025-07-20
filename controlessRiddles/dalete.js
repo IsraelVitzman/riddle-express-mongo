@@ -1,24 +1,29 @@
 import { CreateConection } from '../connectMongoDB/creatConnectMDB.js'
 
 
+export async function deleteRiddle(req, res) {
+    let client;
 
-export async function dalete(req, res) {
     try {
-        const id = req.params.id
+        const id = req.params.id;
 
-        const collection = await CreateConection('riddles')
-
-        await collection.deleteOne(id)
-
-        res.end("delete seccossflly")
-
-        await client.close()
+        const connection = await CreateConection('riddles');
+        client = connection.client;
+        const collection = connection.collection;
 
 
+        await collection.deleteOne({ id });
+
+        res.status(200).send("Delete successfully");
 
     } catch (err) {
-        res.end(err);
+        console.error('invalid eroor /delete/:', err);
+        res.status(500).send(err.message);
+
+    } finally {
+
+        await client.close();
 
     }
-
 }
+
