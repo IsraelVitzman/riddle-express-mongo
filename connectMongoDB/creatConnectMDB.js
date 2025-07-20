@@ -2,8 +2,8 @@ import { MongoClient } from 'mongodb';
 
 export async function CreateConection(table) {
     try {
-        const uri = 'mongodb+srv://iv058lv:0GtoJRS1bylHZF9R@cluster0.hyvelxx.mongodb.net/riddles?retryWrites=true&w=majority&tls=true';
-        ;
+        const uri = process.env.MONGO_DB
+            ;
 
         const client = new MongoClient(uri);
 
