@@ -23,7 +23,7 @@ export function RouterRiddles() {
 
   });
 
-  router.get('/getAllRidlles', (req, res) => {
+  router.get('/getAllRiddles', (req, res) => {
     Read(req, res);
 
   });
