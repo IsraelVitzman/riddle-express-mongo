@@ -12,7 +12,7 @@ export async function Delete(req, res) {
 
 
 
-        await collection.deleteOne({ id });
+        await collection.deleteOne({ id: id });
 
         res.status(200).send("Delete successfully");
 

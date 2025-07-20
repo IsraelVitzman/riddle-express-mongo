@@ -14,7 +14,7 @@ export async function Update(req, res) {
         clientClose = client
 
         await collection.updateOne(
-            { _id: new ObjectId(id) },
+            { id: id },
             { $set: body }
         );
 

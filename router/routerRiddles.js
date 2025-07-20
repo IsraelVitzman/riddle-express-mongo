@@ -13,7 +13,7 @@ export function RouterRiddles() {
 
   });
 
-  router.delete('/deleteRiddle', (req, res) => {
+  router.delete('/deleteRiddle:id', (req, res) => {
     Delete(req, res);
 
   });
