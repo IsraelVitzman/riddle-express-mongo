@@ -1,29 +1,35 @@
-import { CreateConection } from '../connectMongoDB/creatConnectMDB.js';
+
+import { CreateConection } from '../connectToDB/creatConectMYSQL.js'
+
+
 
 export async function NewPlayer(req, res) {
-    let clientClose;
 
     try {
-        const body = req.body;
 
-        const { client, collection } = await CreateConection('player');
+        const name = req.body
 
-        clientClose = client
+        const connection = await CreateConection()
 
+        const query = `
 
-        await collection.insertOne(body);
+      INSERT INTO users ( name)
+      VALUES (?)
+    `;
 
-        res.status(201).send('insert successfully');
+        const [result] = await connection.execute(query, [name]);
 
+        console.log(result.insertId);
+
+        await connection.end();
+
+        res.status(201).send("new user insert seccussoflly")
     } catch (err) {
 
-        console.error(' invalid eroor: /addnewplayer/ :', err);
-        res.status(500).send(err.message);
+        console.error('invalid eroor', err);
 
-    } finally {
-
-        if (clientClose) {
-            await clientClose.close();
-        }
+        res.status(500).send('invalid eroor')
     }
 }
+
+

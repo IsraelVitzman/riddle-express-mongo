@@ -1,42 +1,43 @@
-import { CreateConection } from '../connectMongoDB/creatConnectMDB.js'
 
-export async function AddResult(req, res) {
-    let players, resultGams;
+import { CreateConection } from '../connectToDB/creatConectMYSQL.js'
+
+
+
+export async function InsertGameResult(req, res) {
 
     try {
-        const { name, avergeTime, allTime } = req.body;
 
-        players = await CreateConection('player');
+        const { user_id, avergeTime, allTime } = req.body
 
-        const player = await players.collection.findOne({name});
+        const connection = await CreateConection()
 
-        if (!player) {
-            return res.status(404).send('Player not found');
+        const [users] = await connection.execute(
+
+            'SELECT id FROM users WHERE id = ?',
+            [user_id]
+        );
+
+        if (users.length === 0) {
+            return res.status(404).send('User not found');
         }
 
-        const playerId = player._id;
+        const query = `
+        
+          INSERT INTO game_results  (user_id, average_time, all_time)
+          VALUES (?,?,?)               
+          `;
 
-        const result = {
-            playerId,
-            name,
-            avergeTime,
-            allTime
-        };
+        const [result] = await connection.execute(query, [user_id, avergeTime, allTime]);
 
-        resultGams = await CreateConection('resultGams');
-        await resultGams.collection.insertOne(result);
+        console.log(result.insertId);
 
-        res.status(201).send('insert seccossflly');
+        await connection.end();
 
+        res.status(201).send("game results insert seccussoflly")
     } catch (err) {
 
-        console.error('invalid eroor: /addResultGame/:', err);
-        res.status(500).send(err.message);
-
-    } finally {
-
-        await players.client.close();
-        await resultGams.client.close();
-
+        console.error('invalid eroor', err);
+        res.status(500).send('invalid eroor')
     }
 }
+

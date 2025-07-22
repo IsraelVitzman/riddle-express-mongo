@@ -1,4 +1,4 @@
-import { CreateConection } from '../connectMongoDB/creatConnectMDB.js'
+import { CreateConection } from '../connectToDB/creatConnectMDB.js'
 
 
 export async function Delete(req, res) {

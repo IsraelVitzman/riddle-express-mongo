@@ -1,4 +1,4 @@
-import { CreateConection } from '../connectMongoDB/creatConnectMDB.js';
+import { CreateConection } from '../connectToDB/creatConnectMDB.js';
 
 
 
@@ -20,8 +20,8 @@ export async function Read(req, res) {
 
     }
     finally {
-        if(clientClose)
-           await clientClose.close()
+        if (clientClose)
+            await clientClose.close()
     }
 
 }
