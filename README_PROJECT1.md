@@ -12,15 +12,16 @@ PROJECT1/
 │
 ├── connectMongoDB/
 │   ├── creatConnectMDB.js         # יצירת חיבור למסד נתונים MongoDB
-│   └── creatConctSUPABASE.js      # (לא בשימוש בפרויקט הזה כרגע)
+│   └── creatConctMYSQL.js         # יצירת חיבור למסד נתונים SQL
 │
 ├── controlessPlayer/
 │   ├── add.js                     # הוספת שחקן חדש
-│   └── get.js                     # שליפת רשימת שחקנים
+│   
 │
 ├── controlessResultGame/
 │   ├── add.js                     # הוספת תוצאות משחק לשחקן
-│   └── get.js                     # שליפת תוצאות כל השחקנים
+│   └── getAll.js                  # שליפת תוצאות הטובה של  השחקן
+|   └── getOne.js                  # שליפת תוצאות הטובות של כל השחקנים
 │
 ├── controlessRiddles/
 │   ├── add.js                     # הוספת חידה חדשה
