@@ -1,6 +1,6 @@
 import mysql from 'mysql2/promise';
 
-export async function   CreateConection() {
+export async function CreateConection() {
     try {
 
         const connection = await mysql.createConnection({
@@ -9,13 +9,14 @@ export async function   CreateConection() {
             password: '',
             database: 'usersRiddles'
         });
-
+        return connection
     } catch (error) {
         console.error(' error creating tables:', error);
     }
 }
 
 export async function CreateTables() {
+    const connection = await CreateConection()
     try {
         const tebleUsers = (`
       CREATE TABLE IF NOT EXISTS users (
@@ -36,11 +37,13 @@ export async function CreateTables() {
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         );
      `);
-
+        await connection.query(tebleUsers);
+        await connection.query(tebleResultGame);
+        
         console.log("the teble creat seccussoflly");
 
 
-
+       connection.end()
 
     } catch (error) {
 
