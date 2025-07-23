@@ -21,7 +21,8 @@ export async function CreateTables() {
         const tebleUsers = (`
       CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(100) NOT NULL UNIQUE
+        name VARCHAR(100) NOT NULL UNIQUE,
+        role VARCHAR(100) NOT NULL 
         );
       `);
 
@@ -39,11 +40,11 @@ export async function CreateTables() {
      `);
         await connection.query(tebleUsers);
         await connection.query(tebleResultGame);
-        
+
         console.log("the teble creat seccussoflly");
 
 
-       connection.end()
+        connection.end()
 
     } catch (error) {
 

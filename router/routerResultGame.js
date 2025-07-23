@@ -1,5 +1,5 @@
 import express from 'express';
-
+import { verifyAdmin, verifyAdminOrAdmin } from "../token/token.js";
 import { InsertGameResult } from "../controlessResultGame/add.js";
 import { GetBestGameResultByUserName } from "../controlessResultGame/getOne.js";
 import { GetBestResultsForAllUsers } from "../controlessResultGame/getAll.js";

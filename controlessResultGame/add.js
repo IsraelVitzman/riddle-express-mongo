@@ -1,31 +1,26 @@
-
-import { CreateConection } from '../connectToDB/creatConectMYSQL.js'
-
-
+import { CreateConection } from '../connectToDB/creatConectMYSQL.js';
 
 export async function InsertGameResult(req, res) {
-
     try {
+        const { name, avergeTime, allTime } = req.body;
 
-        const { user_id, avergeTime, allTime } = req.body
-
-        const connection = await CreateConection()
+        const connection = await CreateConection();
 
         const [users] = await connection.execute(
-
-            'SELECT id FROM users WHERE id = ?',
-            [user_id]
+            'SELECT id FROM users WHERE name = ?',
+            [name]
         );
 
         if (users.length === 0) {
             return res.status(404).send('User not found');
         }
 
+        const user_id = users[0].id;
+
         const query = `
-        
-          INSERT INTO game_results  (user_id, average_time, all_time)
-          VALUES (?,?,?)               
-          `;
+            INSERT INTO game_results (user_id,averge_time, all_time)  
+            VALUES (?, ?, ?)
+        `;
 
         const [result] = await connection.execute(query, [user_id, avergeTime, allTime]);
 
@@ -33,11 +28,11 @@ export async function InsertGameResult(req, res) {
 
         await connection.end();
 
-        res.status(201).send("game results insert seccussoflly")
+        res.status(201).send("game results insert seccussoflly");
     } catch (err) {
-
         console.error('invalid eroor', err);
-        res.status(500).send('invalid eroor')
+        res.status(500).send('invalid eroor');
     }
 }
+
 

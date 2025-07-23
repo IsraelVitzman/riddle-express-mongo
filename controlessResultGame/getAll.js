@@ -1,5 +1,5 @@
 import { CreateConection } from '../connectToDB/creatConectMYSQL.js';
-import { GetBestGameResultByUserName } from './getOne.js';
+
 
 export async function GetBestResultsForAllUsers(req, res) {
     try {
@@ -11,7 +11,7 @@ export async function GetBestResultsForAllUsers(req, res) {
 
 
         for (const user of users) {
-            const bestResult = await GetBestGameResultByUserName(user.name);
+            const bestResult = await GetBestGameResultByUserNameRaw(user.name);
             if (bestResult) {
                 results.push(bestResult);
             }
@@ -26,4 +26,25 @@ export async function GetBestResultsForAllUsers(req, res) {
         throw err;
     }
 }
-//הערות לא טופל סגירה בפיינלי למקרה שהוא לא יסגור
+
+export async function GetBestGameResultByUserNameRaw(name) {
+    const connection = await CreateConection();
+    try {
+        const sql = `
+            SELECT gr.id, u.name, gr.averge_time, gr.all_time
+            FROM game_results gr
+            JOIN users u ON gr.user_id = u.id
+            WHERE u.name = ?
+            ORDER BY gr.all_time ASC
+            LIMIT 1
+        `;
+        const [results] = await connection.execute(sql, [name]);
+        return results[0];  
+        
+    } catch (err) {
+        console.error("Error:", err);
+        return null;
+    } finally {
+        await connection.end();
+    }
+}
