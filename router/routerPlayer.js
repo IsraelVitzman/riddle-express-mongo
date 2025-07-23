@@ -1,6 +1,6 @@
 import express from 'express';
 import { NewPlayer } from "../controlessPlayer/addSignUp.js";
-import { LoginPlayer } from "../controlessPlayer/addSignUp.js";
+import { LoginPlayer } from "../controlessPlayer/addLogin.js";
 
 const router = express.Router();
 
