@@ -1,11 +1,18 @@
 import { CreateConection } from '../connectToDB/creatConectMYSQL.js';
+import { NewPlayer } from "./addSignUp.js";
+
 import jwt from 'jsonwebtoken';
 
 const SECRET = 'your_jwt_secret_key';
 
 export async function LoginPlayer(req, res) {
+
     try {
-        const { name } = req.body;
+        const {name, role} = req.body;
+
+        if (!name || !role) {
+            return res.status(400).send("Missing name or role");
+        }
 
         const connection = await CreateConection();
 
@@ -18,7 +25,7 @@ export async function LoginPlayer(req, res) {
         await connection.end();
 
         if (rows.length === 0) {
-            return res.status(404).send("User not found");
+          return await NewPlayer(name,role ,res)
         }
 
         const user = rows[0];
@@ -43,3 +50,4 @@ export async function LoginPlayer(req, res) {
         res.status(500).send("Server error");
     }
 }
+
