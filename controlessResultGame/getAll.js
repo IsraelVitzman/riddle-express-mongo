@@ -39,8 +39,8 @@ export async function GetBestGameResultByUserNameRaw(name) {
             LIMIT 1
         `;
         const [results] = await connection.execute(sql, [name]);
-        return results[0];  
-        
+        return results[0];
+
     } catch (err) {
         console.error("Error:", err);
         return null;

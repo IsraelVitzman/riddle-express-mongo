@@ -1,12 +1,10 @@
 import { CreateConection } from '../connectToDB/creatConectMYSQL.js';
 import { NewPlayer } from "./addSignUp.js";
-
 import jwt from 'jsonwebtoken';
 
 const SECRET = 'your_jwt_secret_key';
 
 export async function LoginPlayer(req, res) {
-
     try {
         const {name, role} = req.body;
 
@@ -16,38 +14,38 @@ export async function LoginPlayer(req, res) {
 
         const connection = await CreateConection();
 
-        const query = `
-          SELECT * FROM users WHERE name = ?
-        `;
-
+        const query = `SELECT * FROM users WHERE name = ?`;
         const [rows] = await connection.execute(query, [name]);
-
         await connection.end();
 
         if (rows.length === 0) {
-          return await NewPlayer(name,role ,res)
+            return await NewPlayer(name, role, res);
         }
 
         const user = rows[0];
 
-
         const token = jwt.sign(
-            { role: user.role },
+            { 
+                id: user.id,
+                name: user.name,
+                role: user.role 
+            },
             SECRET,
             { expiresIn: '1h' }
         );
 
+        
+        
 
-        res.cookie('token', token, {
-            httpOnly: true,
-            maxAge: 60 * 60 * 1000,
-            secure: false
-        });
+        console.log(`login successful: ${user.name} (${user.role})`);
+        console.log(`token sent in cookie: ${token.substring(0, 20)}...`);
+        
+        console.log("created token for user");
+        res.status(200).json({token})
+            
 
-        res.status(200).send(`welcome back ${user.name}, you are logged in as ${user.role}`);
     } catch (err) {
         console.error("Login error", err);
         res.status(500).send("Server error");
     }
 }
-

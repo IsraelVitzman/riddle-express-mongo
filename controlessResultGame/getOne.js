@@ -22,11 +22,11 @@ export async function GetBestGameResultByUserName(req, res) {
     } catch (err) {
 
         console.error("invalid eroor", err);
-        
+
         res.status(500).send('internal error');
 
     } finally {
-        
+
         if (connection) await connection.end();
     }
 }

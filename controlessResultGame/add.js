@@ -3,7 +3,9 @@ import { CreateConection } from '../connectToDB/creatConectMYSQL.js';
 export async function InsertGameResult(req, res) {
     try {
         const { name, avergeTime, allTime } = req.body;
-
+        
+        console.log(name, avergeTime, allTime);
+        
         const connection = await CreateConection();
 
         const [users] = await connection.execute(
