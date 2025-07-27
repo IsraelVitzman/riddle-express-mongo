@@ -16,7 +16,7 @@ export async function LoginPlayer(req, res) {
 
         const query = `SELECT * FROM users WHERE name = ?`;
         const [rows] = await connection.execute(query, [name]);
-        console.log(rows,"rows");
+        
         
         await connection.end();
 
