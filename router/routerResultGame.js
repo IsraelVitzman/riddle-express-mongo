@@ -13,7 +13,7 @@ export function RouterResultGame() {
     });
 
 
-    router.get('/resultBestPlayer', (req, res) => {
+    router.get('/resultBestPlayer/:name', (req, res) => {
         GetBestGameResultByUserName(req, res)
 
     });

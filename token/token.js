@@ -15,7 +15,8 @@ export function verifyAdmin(req, res, next) {
             console.log(err);
             return
         }
-
+        console.log(decoded.role);
+        
         if (decoded.role !== 'admin') {
             console.log("no accses is no admin");
             return

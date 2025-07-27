@@ -16,14 +16,17 @@ export async function LoginPlayer(req, res) {
 
         const query = `SELECT * FROM users WHERE name = ?`;
         const [rows] = await connection.execute(query, [name]);
+        console.log(rows,"rows");
+        
         await connection.end();
 
         if (rows.length === 0) {
             return await NewPlayer(name, role, res);
         }
 
-        const user = rows[0];
-
+       
+        console.log(user.role);
+        
         const token = jwt.sign(
             { 
                 id: user.id,
@@ -38,7 +41,7 @@ export async function LoginPlayer(req, res) {
         
 
         console.log(`login successful: ${user.name} (${user.role})`);
-        console.log(`token sent in cookie: ${token.substring(0, 20)}...`);
+        console.log(`token sent in token: ${token.substring(0, 20)}...`);
         
         console.log("created token for user");
         res.status(200).json({token})

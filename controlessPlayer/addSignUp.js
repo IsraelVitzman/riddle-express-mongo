@@ -1,6 +1,6 @@
 import { CreateConection } from '../connectToDB/creatConectMYSQL.js';
 import jwt from 'jsonwebtoken';
-import { LoginPlayer } from './addLogin.js';
+
 
 const SECRET = 'your_jwt_secret_key';
 
@@ -20,7 +20,8 @@ export async function NewPlayer(name, role, res) {
         await connection.end();
 
         const newUser = newUserRows[0];
-
+        
+        
         const token = jwt.sign(
             {
                 id: newUser.id,

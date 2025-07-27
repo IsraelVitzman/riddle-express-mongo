@@ -3,7 +3,10 @@ import { CreateConection } from '../connectToDB/creatConectMYSQL.js';
 export async function GetBestGameResultByUserName(req, res) {
     let connection;
     try {
-        const { name } = req.body;
+        const name = req.params.name
+       
+
+        if (!name) return res.status(400).send("no name")
         connection = await CreateConection();
 
         const sql = `
