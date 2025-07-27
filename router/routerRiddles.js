@@ -27,6 +27,10 @@ export function RouterRiddles() {
     Read(req, res);
 
   });
+  router.get('/getAllRiddlesToGame', (req, res) => {
+    Read(req, res);
+
+  });
   return router
 
 }

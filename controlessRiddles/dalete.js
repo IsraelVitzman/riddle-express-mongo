@@ -6,22 +6,23 @@ export async function Delete(req, res) {
 
     try {
         const id = req.params.id;
-
+        console.log("delete riddle");
+        
         const { client, collection } = await CreateConection('riddles');
         clientClose = client
 
 
-
         await collection.deleteOne({ id: id });
 
-        res.status(200).send("Delete successfully");
+        res.status(200).json({message:"Delete successfully"});
 
     } catch (err) {
         console.error('invalid eroor /delete/:', err);
-        res.status(500).send(err.message);
+
+        res.status(500).json({message:err.message});
 
     } finally {
-
+      if (clientClose)
         await clientClose.close();
 
     }

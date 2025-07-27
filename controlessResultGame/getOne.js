@@ -4,9 +4,10 @@ export async function GetBestGameResultByUserName(req, res) {
     let connection;
     try {
         const name = req.params.name
-       
+        console.log("Get Best Game Result By User Name" ,name);
+        
 
-        if (!name) return res.status(400).send("no name")
+        if (!name) return res.status(400).json({message:"no name"})
         connection = await CreateConection();
 
         const sql = `
@@ -20,13 +21,13 @@ export async function GetBestGameResultByUserName(req, res) {
 
         const [results] = await connection.execute(sql, [name]);
 
-        res.send(results);
+        res.json({results});
 
     } catch (err) {
 
         console.error("invalid eroor", err);
 
-        res.status(500).send('internal error');
+        res.status(500).json({message:'internal error'});
 
     } finally {
 

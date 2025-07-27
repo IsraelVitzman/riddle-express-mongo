@@ -5,6 +5,8 @@ import { CreateConection } from '../connectToDB/creatConnectMDB.js'
 export async function Update(req, res) {
     let clientClose;
     try {
+        console.log("update riddle");
+        
         const id = req.params.id
 
         const body = req.body
@@ -18,13 +20,13 @@ export async function Update(req, res) {
             { $set: body }
         );
 
-        res.end("update seccossflly")
+        
 
         await client.close()
 
     } catch (err) {
         console.error('invalid eroor: /update/', err);
-        res.status(500).send(err.message);
+        res.status(500).json({message:err.message});
     }
     finally {
         if (clientClose)

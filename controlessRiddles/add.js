@@ -4,9 +4,8 @@ export async function Add(req, res) {
     try {
 
         const body = req.body;
-
-        console.log(body);
-
+        console.log("add riddle");
+        
         const { client, collection } = await CreateConection('riddles');
 
         clientClose = client
@@ -14,13 +13,14 @@ export async function Add(req, res) {
 
         await collection.insertOne(body);
 
-        res.status(201).send('insert successfully');
+        res.status(201).json({message:'insert successfully'});
 
     } catch (err) {
         console.error(' invalid eroor /add/:', err);
-        res.status(500).send(err.message);
-    } finally {
 
+        res.status(500).json({message:err.message});
+
+    } finally {
         await clientClose.close();
 
     }

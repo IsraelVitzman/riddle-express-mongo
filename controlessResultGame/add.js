@@ -4,7 +4,7 @@ export async function InsertGameResult(req, res) {
     try {
         const { name, avergeTime, allTime } = req.body;
         
-        console.log(name, avergeTime, allTime);
+        console.log("Insert Game Result",name, avergeTime, allTime);
         
         const connection = await CreateConection();
 
@@ -14,7 +14,7 @@ export async function InsertGameResult(req, res) {
         );
 
         if (users.length === 0) {
-            return res.status(404).send('User not found');
+            return res.status(404).json({message:'User not found'});
         }
 
         const user_id = users[0].id;
@@ -30,10 +30,10 @@ export async function InsertGameResult(req, res) {
 
         await connection.end();
 
-        res.status(201).send("game results insert seccussoflly");
+        res.status(201).json({message:"game results insert seccussoflly"});
     } catch (err) {
         console.error('invalid eroor', err);
-        res.status(500).send('invalid eroor');
+        res.status(500).json({message:'invalid eroor'});
     }
 }
 

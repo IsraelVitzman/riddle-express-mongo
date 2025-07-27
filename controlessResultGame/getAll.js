@@ -4,7 +4,8 @@ import { CreateConection } from '../connectToDB/creatConectMYSQL.js';
 export async function GetBestResultsForAllUsers(req, res) {
     try {
         const connection = await CreateConection();
-
+        console.log("Get Best Results For All Users");
+   
         const [users] = await connection.execute('SELECT name FROM users');
 
         const results = [];
@@ -17,13 +18,13 @@ export async function GetBestResultsForAllUsers(req, res) {
             }
         }
 
-        await connection.end();
-
-
-        res.send(results)
+        res.json({results})
     } catch (err) {
         console.error('Error getting best results for all users:', err);
         throw err;
+
+    }finally{
+        if(connection)await connection.end();
     }
 }
 
@@ -42,8 +43,10 @@ export async function GetBestGameResultByUserNameRaw(name) {
         return results[0];
 
     } catch (err) {
+
         console.error("Error:", err);
         return null;
+
     } finally {
         await connection.end();
     }
